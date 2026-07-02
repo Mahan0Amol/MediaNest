@@ -81,6 +81,9 @@ const translations = {
     'label.alertMessage': 'متن هشدار',
     'placeholder.alertMessage': 'توضیح کوتاه درباره هشدار',
     'label.level': 'سطح',
+    'label.status': 'وضعیت',
+    'label.favorite': 'علاقه‌مندی',
+    'label.rating': 'امتیاز',
     'option.info': 'اطلاعات',
     'option.warning': 'هشدار',
     'option.success': 'موفقیت',
@@ -180,6 +183,9 @@ const translations = {
     'label.alertMessage': 'Message',
     'placeholder.alertMessage': 'Short description',
     'label.level': 'Level',
+    'label.status': 'Status',
+    'label.favorite': 'Favorite',
+    'label.rating': 'Rating',
     'option.info': 'Info',
     'option.warning': 'Warning',
     'option.success': 'Success',
@@ -1177,28 +1183,44 @@ function openMovieDetail(id) {
         <div class="dh-overview">${escapeHtml(m.overview)}</div>
       </div>
     </div>
+
     <div class="form-row">
-      <label>وضعیت</label>
+      <label>${t('label.level')}</label>
       <select id="movie-status">
-        <option value="watchlist" ${m.status === 'watchlist' ? 'selected' : ''}>لیست تماشا</option>
-        <option value="watched" ${m.status === 'watched' ? 'selected' : ''}>دیده‌شده</option>
+        <option value="watchlist" ${m.status === 'watchlist' ? 'selected' : ''}>
+          ${t('badge.watchlist')}
+        </option>
+        <option value="watched" ${m.status === 'watched' ? 'selected' : ''}>
+          ${t('badge.watched')}
+        </option>
       </select>
     </div>
+
     <div class="form-row">
-      <label>علاقه‌مندی</label>
+      <label>${t('label.favorite')}</label>
       <label class="switch">
         <input type="checkbox" id="movie-favorite" ${m.favorite ? 'checked' : ''} />
         <span class="slider"></span>
       </label>
     </div>
+
     <div class="form-row">
-      <label>امتیاز</label>
+      <label>${t('label.level')}</label>
       ${starsHtml(m.rating || 0, m.id, 'movies')}
     </div>
+
     <div class="modal-close-row">
-      <button class="btn btn-danger" id="delete-btn">حذف</button>
-      <button class="btn" id="cancel-btn">بستن</button>
-      <button class="btn btn-primary" id="save-btn">ذخیره</button>
+      <button class="btn btn-danger" id="delete-btn">
+        ${t('button.hide')}
+      </button>
+
+      <button class="btn" id="cancel-btn">
+        ${t('button.cancel')}
+      </button>
+
+      <button class="btn btn-primary" id="save-btn">
+        ${t('button.save')}
+      </button>
     </div>
   `);
   attachStarHandlers(document.getElementById('modal-box'));
