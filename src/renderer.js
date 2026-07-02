@@ -37,6 +37,7 @@ const translations = {
     'filter.books': 'کتاب‌ها',
     'subtab.all': 'همه',
     'subtab.watchlist': 'لیست تماشا',
+    'subtab.readlist': 'لیست خواندن',
     'subtab.watched': 'دیده‌شده',
     'subtab.favorites': 'علاقه‌مندی‌ها',
     'stats.movies': '🎥 کل فیلم‌ها',
@@ -45,7 +46,9 @@ const translations = {
     'stats.watched': 'دیده‌شده',
     'stats.watching': 'در حال تماشا',
     'stats.reading': 'در حال خواندن',
+    'stats.read': 'خوانده‌شده',
     'stats.totalCompleted': 'مجموع تکمیل‌شده‌ها',
+    'stats.dropped': 'رها شده',
     'section.inprogress': 'در حال تماشا / خواندن',
     'section.reminders': 'یادآورها',
     'section.alerts': 'هشدارها',
@@ -63,9 +66,8 @@ const translations = {
     'badge.read': 'خوانده‌شده',
     'badge.reading': 'در حال خواندن',
     'badge.toRead': 'لیست خواندن',
-    'progress.of': 'از',
-    'progress.episodes': 'قسمت',
-    'progress.pages': 'صفحه',
+    'progress.pages': 'صفحه {current} از {total}',
+    'progress.episodes': '{watched} از {total} قسمت',
     'button.done': 'انجام شد',
     'button.hide': 'پنهان',
     'button.cancel': 'انصراف',
@@ -94,6 +96,9 @@ const translations = {
     'toast.alertMissing': 'عنوان و متن هشدار لازم است',
     'toast.alertAdded': 'هشدار اضافه شد',
     'toast.reminderMissing': 'عنوان، متن و زمان یادآور لازم است',
+    'type.book': 'کتاب',
+    'type.show': 'سریال',
+    'type.movie': 'فیلم',
     'toast.saved': 'ذخیره شد',
     'hint.openLibrary': 'اگر کلیدی ندارید، برنامه به‌صورت خودکار از Open Library استفاده می‌کند.',
     'text.untitled': 'بدون عنوان',
@@ -131,6 +136,7 @@ const translations = {
     'filter.books': 'Books',
     'subtab.all': 'All',
     'subtab.watchlist': 'Watchlist',
+    'subtab.readlist': 'To read',
     'subtab.watched': 'Watched',
     'subtab.favorites': 'Favorites',
     'stats.movies': '🎥 Movies',
@@ -140,6 +146,8 @@ const translations = {
     'stats.watching': 'watching',
     'stats.reading': 'reading',
     'stats.totalCompleted': 'Total completed',
+    'stats.read': 'read',
+    'stats.dropped': 'dropped',
     'section.reminders': 'Reminders',
     'section.alerts': 'Alerts',
     'section.inprogress': 'In progress',
@@ -157,9 +165,8 @@ const translations = {
     'badge.read': 'Read',
     'badge.reading': 'Reading',
     'badge.toRead': 'To read',
-    'progress.of': 'of',
-    'progress.episodes': 'episodes',
-    'progress.pages': 'pages',
+    'progress.pages': 'Page {current} of {total}',
+    'progress.episodes': '{watched} of {total} episodes',
     'button.done': 'Done',
     'button.hide': 'Hide',
     'button.cancel': 'Cancel',
@@ -189,6 +196,9 @@ const translations = {
     'toast.alertAdded': 'Alert added',
     'toast.reminderMissing': 'Title, message and time are required',
     'toast.saved': 'Saved',
+    'type.book': 'Book',
+    'type.show': 'Show',
+    'type.movie': 'Movie',
     'hint.openLibrary': 'If you don\'t have a key the app will fall back to Open Library',
     'text.untitled': 'Untitled',
     'fetch.seasons': 'Fetching season details...',
@@ -809,7 +819,9 @@ function renderDashboard(container) {
           </div>
           <button class="btn btn-sm alert-dismiss" data-alert-id="${alert.id}">پنهان</button>
         </div>
-      `).join('') : '<div class="empty-state small">هیچ هشدار فعالی وجود ندارد</div>'}
+      `).join('') : `<div class="empty-state small">
+              ${t('empty.noActiveAlerts') || 'هیچ هشدار فعالی وجود ندارد'}
+            </div>`}
     </div>
 
     <div class="stats-grid">
@@ -859,33 +871,53 @@ function cardHtml(item, kind) {
   let progressHtml = '';
   if (kind === 'movies') {
     badge = item.status === 'watched'
-      ? '<span class="badge watched">دیده‌شده</span>'
-      : '<span class="badge watchlist">لیست تماشا</span>';
+      ? `<span class="badge watched">${t('stats.watched') || 'دیده‌شده'}</span>`
+      : `<span class="badge watchlist">${t('subtab.watchlist') || 'لیست تماشا'}</span>`;
   } else if (kind === 'shows') {
     const total = (item.seasons || []).reduce((a, s) => a + (s.episodeCount || 0), 0);
     const watched = (item.seasons || []).reduce((a, s) => a + (s.watchedEpisodes || []).length, 0);
     const pct = total ? Math.round((watched / total) * 100) : 0;
     badge = item.status === 'watched'
-      ? '<span class="badge watched">تمام‌شده</span>'
+  ? `<span class="badge watched">${t('stats.watched') || 'تمام‌شده'}</span>`
       : item.status === 'watching'
-        ? '<span class="badge watching">در حال تماشا</span>'
+        ? `<span class="badge watching">${t('stats.watching') || 'در حال تماشا'}</span>`
         : item.status === 'abandoned'
-          ? '<span class="badge abandoned">رها شده</span>'
-          : '<span class="badge watchlist">لیست تماشا</span>';
+          ? `<span class="badge abandoned">${t('stats.dropped') || 'رها شده'}</span>`
+          : `<span class="badge watchlist">${t('subtab.watchlist') || 'لیست تماشا'}</span>`;
     if (total > 0) {
-      progressHtml = `<div class="progress-bar"><div class="progress-bar-fill" style="width:${pct}%"></div></div>
-        <div class="card-meta">${watched} از ${total} قسمت</div>`;
+      progressHtml = `
+        <div class="progress-bar">
+          <div class="progress-bar-fill" style="width:${pct}%"></div>
+        </div>
+        <div class="card-meta">
+          ${t('progress.episodes')
+            ? t('progress.episodes')
+                .replace('{watched}', watched)
+                .replace('{total}', total)
+            : `${watched} از ${total} قسمت`}
+        </div>
+      `;
     }
   } else if (kind === 'books') {
     badge = item.status === 'read'
-      ? '<span class="badge watched">خوانده‌شده</span>'
+      ? `<span class="badge watched">${t('stats.read') || 'خوانده‌شده'}</span>`
       : item.status === 'reading'
-        ? '<span class="badge watching">در حال خواندن</span>'
-        : '<span class="badge watchlist">لیست خواندن</span>';
+        ? `<span class="badge watching">${t('stats.reading') || 'در حال خواندن'}</span>`
+        : `<span class="badge watchlist">${t('subtab.readlist') || 'لیست خواندن'}</span>`;
     if (item.totalPages) {
       const pct = Math.min(100, Math.round(((item.currentPage || 0) / item.totalPages) * 100));
-      progressHtml = `<div class="progress-bar"><div class="progress-bar-fill" style="width:${pct}%"></div></div>
-        <div class="card-meta">صفحه ${item.currentPage || 0} از ${item.totalPages}</div>`;
+      progressHtml = `
+        <div class="progress-bar">
+          <div class="progress-bar-fill" style="width:${pct}%"></div>
+        </div>
+        <div class="card-meta">
+          ${t('progress.pages')
+            ? t('progress.pages')
+                .replace('{current}', item.currentPage || 0)
+                .replace('{total}', item.totalPages)
+            : `صفحه ${item.currentPage || 0} از ${item.totalPages}`}
+        </div>
+      `;
     }
   }
 
