@@ -47,6 +47,8 @@ const translations = {
     'stats.reading': 'در حال خواندن',
     'stats.totalCompleted': 'مجموع تکمیل‌شده‌ها',
     'section.inprogress': 'در حال تماشا / خواندن',
+    'section.reminders': 'یادآورها',
+    'section.alerts': 'هشدارها',
     'empty.inprogress': 'چیزی در حال تماشا یا خواندن نیست',
     'empty.noMovies': 'هنوز فیلمی اضافه نکرده‌اید',
     'empty.noShows': 'هنوز سریالی اضافه نکرده‌اید',
@@ -138,6 +140,8 @@ const translations = {
     'stats.watching': 'watching',
     'stats.reading': 'reading',
     'stats.totalCompleted': 'Total completed',
+    'section.reminders': 'Reminders',
+    'section.alerts': 'Alerts',
     'section.inprogress': 'In progress',
     'empty.inprogress': 'Nothing in progress',
     'empty.noMovies': 'No movies added yet',
@@ -766,18 +770,32 @@ function renderDashboard(container) {
   const readingBooks = books.filter(b => b.status === 'reading').length;
 
   container.innerHTML = `
-    <div class="section-title">${t('section.reminders') || 'یادآورها'}</div>
+    <div class="section-title">
+      ${t('section.reminders') || 'یادآورها'}
+    </div>
+
     <div class="alerts-list">
-      ${reminders.length ? reminders.map(reminder => `
-        <div class="alert-item">
-          <div>
-            <div class="alert-title">${escapeHtml(reminder.title)}</div>
-            <div class="alert-message">${escapeHtml(reminder.message)}</div>
-            <div class="alert-meta">${new Date(reminder.dueAt).toLocaleString('fa-IR')}</div>
-          </div>
-          <button class="btn btn-sm alert-dismiss" data-reminder-id="${reminder.id}">انجام شد</button>
-        </div>
-      `).join('') : '<div class="empty-state small">یادآوری ثبت نشده است</div>'}
+      ${
+        reminders.length
+          ? reminders.map(reminder => `
+              <div class="alert-item">
+                <div>
+                  <div class="alert-title">${escapeHtml(reminder.title)}</div>
+                  <div class="alert-message">${escapeHtml(reminder.message)}</div>
+                  <div class="alert-meta">
+                    ${new Date(reminder.dueAt).toLocaleString('fa-IR')}
+                  </div>
+                </div>
+                <button class="btn btn-sm alert-dismiss"
+                  data-reminder-id="${reminder.id}">
+                  ${t('actions.done') || 'انجام شد'}
+                </button>
+              </div>
+            `).join('')
+          : `<div class="empty-state small">
+              ${t('empty.noReminders') || 'یادآوری ثبت نشده است'}
+            </div>`
+      }
     </div>
 
     <div class="section-title">${t('section.alerts') || 'هشدارها'}</div>
