@@ -47,15 +47,40 @@ const reminderTimers = new Map();
 function ensureWindowsNotificationSupport() {
   if (process.platform !== 'win32') return;
   try {
-    app.setAppUserModelId('com.tv.app');
+    // In dev, Windows needs the AppUserModelId to match the actual electron.exe
+    // path for notification activation (clicks/actions) to reach this process.
+    // In a packaged build, use the real app id instead.
+    app.setAppUserModelId(isDev ? process.execPath : 'com.tv.app');
   } catch (err) {
     console.warn('Unable to set AppUserModelId', err);
   }
 }
 
+const SNOOZE_MINUTES = 10;
+
+function focusMainWindow() {
+  const win = BrowserWindow.getAllWindows()[0];
+  if (win) {
+    if (win.isMinimized()) win.restore();
+    win.focus();
+  } else {
+    createWindow();
+  }
+}
+
+function snoozeReminder(reminderId, minutes = SNOOZE_MINUTES) {
+  const data = readJson(getLibraryPath(), DEFAULT_LIBRARY);
+  const reminders = Array.isArray(data.reminders) ? data.reminders : [];
+  const target = reminders.find(r => r.id === reminderId);
+  if (!target) return;
+  target.dueAt = new Date(Date.now() + minutes * 60 * 1000).toISOString();
+  writeJson(getLibraryPath(), data);
+  scheduleReminders(data);
+}
+
 function showReminderNotification(reminder) {
-  const title = reminder?.title || 'یادآور';
-  const body = reminder?.message || 'زمان یادآور فرا رسید';
+  const title = reminder?.title || 'Reminder';
+  const body = reminder?.message || 'Your reminder is due';
   try {
     if (!Notification.isSupported()) {
       console.warn('Notifications are not supported on this platform');
@@ -64,13 +89,20 @@ function showReminderNotification(reminder) {
     const notification = new Notification({
       title,
       body,
-      silent: false
+      silent: false,
+      actions: [
+        { type: 'button', text: `Snooze (${SNOOZE_MINUTES} min)` },
+        { type: 'button', text: 'Open App' }
+      ]
     });
     notification.on('click', () => {
-      const win = BrowserWindow.getAllWindows()[0];
-      if (win) {
-        if (win.isMinimized()) win.restore();
-        win.focus();
+      focusMainWindow();
+    });
+    notification.on('action', (event) => {
+      if (event.actionIndex === 0) {
+        snoozeReminder(reminder?.id);
+      } else if (event.actionIndex === 1) {
+        focusMainWindow();
       }
     });
     notification.show();
