@@ -1,8 +1,11 @@
-const { app, BrowserWindow, ipcMain, shell, Notification } = require('electron');
+const { app, BrowserWindow, ipcMain, shell, Notification, Tray, Menu } = require('electron');
 const path = require('path');
 const fs = require('fs');
 
 const isDev = !app.isPackaged;
+let tray = null;
+let mainWindow = null;
+let isQuitting = false;
 
 function getDataDir() {
   const dir = app.getPath('userData');
@@ -50,33 +53,33 @@ function ensureWindowsNotificationSupport() {
     // In dev, Windows needs the AppUserModelId to match the actual electron.exe
     // path for notification activation (clicks/actions) to reach this process.
     // In a packaged build, use the real app id instead.
-    app.setAppUserModelId(isDev ? process.execPath : 'com.tv.app');
+    app.setAppUserModelId(isDev ? process.execPath : 'com.medianest.app');
   } catch (err) {
     console.warn('Unable to set AppUserModelId', err);
   }
 }
 
-const SNOOZE_MINUTES = 10;
+// const SNOOZE_MINUTES = 10;
 
 function focusMainWindow() {
-  const win = BrowserWindow.getAllWindows()[0];
-  if (win) {
-    if (win.isMinimized()) win.restore();
-    win.focus();
+  if (mainWindow && !mainWindow.isDestroyed()) {
+    if (mainWindow.isMinimized()) mainWindow.restore();
+    if (!mainWindow.isVisible()) mainWindow.show();
+    mainWindow.focus();
   } else {
     createWindow();
   }
 }
 
-function snoozeReminder(reminderId, minutes = SNOOZE_MINUTES) {
-  const data = readJson(getLibraryPath(), DEFAULT_LIBRARY);
-  const reminders = Array.isArray(data.reminders) ? data.reminders : [];
-  const target = reminders.find(r => r.id === reminderId);
-  if (!target) return;
-  target.dueAt = new Date(Date.now() + minutes * 60 * 1000).toISOString();
-  writeJson(getLibraryPath(), data);
-  scheduleReminders(data);
-}
+// function snoozeReminder(reminderId, minutes = SNOOZE_MINUTES) {
+//   const data = readJson(getLibraryPath(), DEFAULT_LIBRARY);
+//   const reminders = Array.isArray(data.reminders) ? data.reminders : [];
+//   const target = reminders.find(r => r.id === reminderId);
+//   if (!target) return;
+//   target.dueAt = new Date(Date.now() + minutes * 60 * 1000).toISOString();
+//   writeJson(getLibraryPath(), data);
+//   scheduleReminders(data);
+// }
 
 function showReminderNotification(reminder) {
   const title = reminder?.title || 'Reminder';
@@ -91,7 +94,7 @@ function showReminderNotification(reminder) {
       body,
       silent: false,
       actions: [
-        { type: 'button', text: `Snooze (${SNOOZE_MINUTES} min)` },
+        // { type: 'button', text: `Snooze (${SNOOZE_MINUTES} min)` },
         { type: 'button', text: 'Open App' }
       ]
     });
@@ -99,11 +102,11 @@ function showReminderNotification(reminder) {
       focusMainWindow();
     });
     notification.on('action', (event) => {
-      if (event.actionIndex === 0) {
-        snoozeReminder(reminder?.id);
-      } else if (event.actionIndex === 1) {
-        focusMainWindow();
-      }
+      // if (event.actionIndex === 0) {
+        // snoozeReminder(reminder?.id);
+      // } else if (event.actionIndex === 1) {
+      focusMainWindow();
+      // }
     });
     notification.show();
   } catch (err) {
@@ -139,14 +142,36 @@ function scheduleReminders(data) {
   });
 }
 
-function createWindow() {
-  // prefer a Windows .ico for the taskbar; fall back to PNG for other platforms
-  const preferred = process.platform === 'win32' ? 'icon.ico' : 'icon.png';
+function getIconPath() {
+  const preferred = process.platform === 'win32' ? 'icon2.ico' : 'icon.png';
   let iconPath = path.join(__dirname, preferred);
   if (!fs.existsSync(iconPath)) {
-    // fallback to PNG if ICO missing
     iconPath = path.join(__dirname, 'icon.png');
   }
+  return iconPath;
+}
+
+function createTray() {
+  if (tray) return;
+  tray = new Tray(getIconPath());
+  tray.setToolTip('MediaNest'); 
+  const contextMenu = Menu.buildFromTemplate([
+    { label: 'Open MediaNest', click: () => focusMainWindow() },
+    { type: 'separator' },
+    {
+      label: 'Quit',
+      click: () => {
+        isQuitting = true;
+        app.quit();
+      }
+    }
+  ]);
+  tray.setContextMenu(contextMenu);
+  tray.on('click', () => focusMainWindow());
+}
+
+function createWindow() {
+  const iconPath = getIconPath();
   console.log('Using app icon:', iconPath, 'exists=', fs.existsSync(iconPath));
   const win = new BrowserWindow({
     width: 1280,
@@ -164,6 +189,8 @@ function createWindow() {
     }
   });
 
+  mainWindow = win;
+
   win.setMenuBarVisibility(false);
   win.loadFile(path.join(__dirname, 'src', 'index.html'));
 
@@ -171,6 +198,17 @@ function createWindow() {
   win.webContents.setWindowOpenHandler(({ url }) => {
     shell.openExternal(url);
     return { action: 'deny' };
+  });
+
+  // Instead of closing (and killing the reminder scheduler), hide to tray.
+  win.on('close', (event) => {
+    if (isQuitting) return;
+    event.preventDefault();
+    win.hide();
+  });
+
+  win.on('closed', () => {
+    mainWindow = null;
   });
 
   if (isDev) {
@@ -182,14 +220,23 @@ app.whenReady().then(() => {
   ensureWindowsNotificationSupport();
   scheduleReminders(readJson(getLibraryPath(), DEFAULT_LIBRARY));
   createWindow();
+  createTray();
 
   app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) createWindow();
+    focusMainWindow();
   });
 });
 
+app.on('before-quit', () => {
+  isQuitting = true;
+});
+
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') app.quit();
+  // Keep running in the background (tray) on Windows/Linux too, so
+  // scheduled reminders keep firing even with no window open.
+  if (process.platform === 'darwin') {
+    // no-op, standard macOS behavior
+  }
 });
 
 // ---------- IPC: Library ----------
