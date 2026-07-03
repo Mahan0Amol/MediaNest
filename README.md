@@ -89,7 +89,7 @@ MediaNest/
 
 Add screenshots here to showcase the app:
 
-```id="k2v9fs"
+
 ### Home / Library View
 ![Screenshot 1](assests/screenshots/screenshot1.png)
 
@@ -110,7 +110,6 @@ Add screenshots here to showcase the app:
 
 ### Settings / Language
 ![Screenshot 7](assests/screenshots/screenshot7.png)
-```
 
 ---
 
