@@ -90,7 +90,7 @@ MediaNest/
 Add screenshots here to showcase the app:
 
 ```id="k2v9fs"
-![MediaNest Screenshot](assests/screenshots/screenshot1.png)
+![MediaNest Screenshot](assests\screenshots\screenshot1.png)
 ```
 
 ---
