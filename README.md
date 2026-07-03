@@ -87,28 +87,28 @@ MediaNest/
 
 ## 📸 Screenshots
 
-Add screenshots here to showcase the app:
+A preview of MediaNest interface across different sections:
 
+### ⚙️ Settings
+![Settings](assests/screenshots/screenshot1.png)
 
-### Dashboard
-![Screenshot 2](assests/screenshots/screenshot2.png)
+### 🏠 Dashboard
+![Dashboard](assests/screenshots/screenshot2.png)
 
-### Settings Section
-![Screenshot 1](assests/screenshots/screenshot1.png)
+### 🎬 Movies – Watchlist
+![Movies Watchlist](assests/screenshots/screenshot3.png)
 
-### Movies
-![Screenshot 3](assests/screenshots/screenshot3.png)
+### ⭐ Movies – Favorites
+![Movies Favorites](assests/screenshots/screenshot4.png)
 
-![Screenshot 4](assests/screenshots/screenshot4.png)
+### ✅ Movies – Watched
+![Movies Watched](assests/screenshots/screenshot5.png)
 
-![Screenshot 5](assests/screenshots/screenshot5.png)
+### 📺 TV Shows
+![TV Shows](assests/screenshots/screenshot6.png)
 
-### TV Shows Page
-![Screenshot 6](assests/screenshots/screenshot6.png)
-
-### Books Page
-![Screenshot 7](assests/screenshots/screenshot7.png)
-
+### 📚 Books
+![Books](assests/screenshots/screenshot7.png)
 ---
 
 ## 🎯 Project Goal
