@@ -1,5 +1,5 @@
 {
-  "name": "tv",
+  "name": "MediaNest",
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
@@ -17,8 +17,8 @@
     "electron-builder": "^26.15.3"
   },
   "build": {
-    "appId": "com.tv.app",
-    "productName": "TV",
+    "appId": "com.MediaNest.app",
+    "productName": "MediaNest",
     "files": [
       "**/*",
       "!node_modules/electron-builder${/*}"
