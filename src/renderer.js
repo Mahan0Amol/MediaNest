@@ -238,6 +238,27 @@ function uid() {
   return Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
 }
 
+// Downloads a remote image and converts it to a base64 data URL so it gets
+// saved inside library.json and keeps working offline. Falls back to the
+// original remote URL if the download fails (e.g. no internet at add-time).
+async function toOfflineImage(url) {
+  if (!url) return '';
+  try {
+    const res = await fetch(url);
+    if (!res.ok) return url;
+    const blob = await res.blob();
+    return await new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = () => resolve(url);
+      reader.readAsDataURL(blob);
+    });
+  } catch (err) {
+    console.error('toOfflineImage failed, keeping remote url', err);
+    return url;
+  }
+}
+
 function escapeHtml(str) {
   if (str === undefined || str === null) return '';
   return String(str)
@@ -1056,16 +1077,17 @@ function renderMovieSearchResults(results) {
   });
 }
 
-function addMovieFromTmdb(r) {
+async function addMovieFromTmdb(r) {
   if (library.movies.some(m => m.tmdbId === r.id)) {
     toast(t('toast.movieExists'));
     return;
   }
+  const posterUrl = r.poster_path ? TMDB_IMG + r.poster_path : '';
   const movie = {
     id: uid(),
     tmdbId: r.id,
     title: r.title || r.original_title,
-    poster: r.poster_path ? TMDB_IMG + r.poster_path : '',
+    poster: await toOfflineImage(posterUrl),
     year: (r.release_date || '').slice(0, 4),
     overview: r.overview || '',
     status: 'watchlist',
@@ -1370,7 +1392,7 @@ function renderBookSearchResults(results) {
   });
 }
 
-function addBookFromSearch(book) {
+async function addBookFromSearch(book) {
   if (!book) return;
   if (library.books.some(b => b.title === book.title && b.author === book.author)) {
     toast('این کتاب قبلاً اضافه شده است');
@@ -1381,7 +1403,7 @@ function addBookFromSearch(book) {
     id: uid(),
     title: book.title || 'بدون عنوان',
     author: book.author || 'ناشناس',
-    cover: book.cover || '',
+    cover: await toOfflineImage(book.cover || ''),
     year: book.year || '',
     overview: book.description || '',
     status: 'watchlist',
@@ -1595,11 +1617,12 @@ async function addShowFromTmdb(r) {
       watchedEpisodes: []
     }));
 
+  const posterUrl = r.poster_path ? TMDB_IMG + r.poster_path : '';
   const show = {
     id: uid(),
     tmdbId: r.id,
     title: r.name || r.original_name,
-    poster: r.poster_path ? TMDB_IMG + r.poster_path : '',
+    poster: await toOfflineImage(posterUrl),
     year: (r.first_air_date || '').slice(0, 4),
     overview: r.overview || '',
     status: 'watchlist',
