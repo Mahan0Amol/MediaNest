@@ -15,5 +15,25 @@
   "devDependencies": {
     "electron": "^43.0.0",
     "electron-builder": "^26.15.3"
+  },
+  "build": {
+    "appId": "com.tv.app",
+    "productName": "TV",
+    "files": [
+      "**/*",
+      "!node_modules/electron-builder${/*}"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "license": "LICENSE.txt",
+      "perMachine": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
   }
 }
