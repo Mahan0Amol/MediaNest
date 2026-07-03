@@ -23,6 +23,7 @@ const translations = {
     'action.addShow': 'افزودن سریال',
     'action.addBook': 'افزودن کتاب',
     'action.addReminder': 'یادآور',
+    'action.done': 'انجام شد',
     'settings.heading': 'تنظیمات',
     'settings.tmdb.help': 'این صفحه',
     'settings.saved': 'تنظیمات ذخیره شد',
@@ -31,6 +32,12 @@ const translations = {
     'settings.showAllLabel': 'نمایش گزینه «همه» در تب‌ها',
     'settings.tmdbLanguageLabel': 'زبان جستجوی TMDB',
     'settings.dataDirLabel': 'پوشه داده‌ها',
+    'settings.tmdbPlaceholder': 'کلید TMDB را وارد کنید',
+    'settings.booksPlaceholder': 'در صورت استفاده از Google Books کلید را وارد کنید',
+    'settings.tmdb.helpText': 'برای جستجو در TMDB لازم است. می‌توانید از',
+    'settings.tmdb.helpLink': 'این صفحه',
+    'settings.openLibraryHint': 'اگر کلیدی ندارید، برنامه به‌صورت خودکار از Open Library استفاده می‌کند.',
+    'settings.auto': 'خودکار (سیستم)',
     'filter.all': 'همه',
     'filter.movies': 'فیلم‌ها',
     'filter.shows': 'سریال‌ها',
@@ -67,23 +74,39 @@ const translations = {
     'badge.reading': 'در حال خواندن',
     'badge.toRead': 'لیست خواندن',
     'progress.pages': 'صفحه {current} از {total}',
-    'progress.episodes': '{watched} از {total} قسمت',
+    'progress.episodes': 'قسمت {watched} از {total}',
     'button.done': 'انجام شد',
     'button.hide': 'پنهان',
     'button.cancel': 'انصراف',
     'button.save': 'ذخیره',
+    'button.delete': 'حذف',
+    'button.markAll': 'علامت‌گذاری همه',
     'search.noResults': 'نتیجه‌ای یافت نشد',
     'modal.addMovie.title': 'افزودن فیلم',
     'modal.addShow.title': 'افزودن سریال',
     'modal.addBook.title': 'افزودن کتاب',
     'modal.addAlert.title': 'افزودن هشدار',
+    'modal.addReminder.title': 'افزودن یادآور',
     'label.title': 'عنوان',
     'label.alertMessage': 'متن هشدار',
     'placeholder.alertMessage': 'توضیح کوتاه درباره هشدار',
+    'placeholder.movieName': 'مثلا جنگ ستارگان',
+    'placeholder.addAlert.exampleTitle': 'مثلا افزودن سریال شرلوک به لیست تماشا',
+    'placeholder.addReminder.exampleTitle': 'مثلا ادامه تماشای سریال شرلوک',
+    'placeholder.reminderMessage': 'جزئیات یادآور',
+    'placeholder.bookSearch': 'نام کتاب یا نویسنده را وارد کنید...',
+    'placeholder.showSearch': 'نام سریال را وارد کنید',
     'label.level': 'سطح',
     'label.status': 'وضعیت',
     'label.favorite': 'علاقه‌مندی',
     'label.rating': 'امتیاز',
+    'label.time': 'زمان',
+    'label.searchTmdb': 'جستجو در TMDB',
+    'label.bookSearch' : 'جست و جوی کتاب',
+    'label.addReminder.message': 'متن یادآور',
+    'label.currentPage': 'صفحه فعلی',
+    'label.totalPages': 'تعداد کل صفحات',
+    'label.seasonsEpisodes': 'فصل‌ها و قسمت‌ها',
     'option.info': 'اطلاعات',
     'option.warning': 'هشدار',
     'option.success': 'موفقیت',
@@ -99,6 +122,7 @@ const translations = {
     'toast.alertMissing': 'عنوان و متن هشدار لازم است',
     'toast.alertAdded': 'هشدار اضافه شد',
     'toast.reminderMissing': 'عنوان، متن و زمان یادآور لازم است',
+    'toast.added.reminder': 'یادآور اضافه شد',
     'type.book': 'کتاب',
     'type.show': 'سریال',
     'type.movie': 'فیلم',
@@ -124,6 +148,7 @@ const translations = {
     'action.addMovie': 'Add Movie',
     'action.addShow': 'Add Show',
     'action.addBook': 'Add Book',
+    'action.done': 'Done',
     'action.addReminder': 'Reminder',
     'settings.heading': 'Settings',
     'settings.tmdb.help': 'this page',
@@ -133,6 +158,12 @@ const translations = {
     'settings.showAllLabel': 'Show "All" in tabs',
     'settings.tmdbLanguageLabel': 'TMDB search language',
     'settings.dataDirLabel': 'Data folder',
+    'settings.tmdbPlaceholder': 'Enter TMDB API key',
+    'settings.booksPlaceholder': 'Enter Google Books API key (optional)',
+    'settings.tmdb.helpText': 'Required for TMDB search. You can get a key from',
+    'settings.tmdb.helpLink': 'this page',
+    'settings.openLibraryHint': 'If no key is provided, the app will fall back to Open Library.',
+    'settings.auto': 'Auto (system)',
     'filter.all': 'All',
     'filter.movies': 'Movies',
     'filter.shows': 'Shows',
@@ -169,23 +200,39 @@ const translations = {
     'badge.reading': 'Reading',
     'badge.toRead': 'To read',
     'progress.pages': 'Page {current} of {total}',
-    'progress.episodes': '{watched} of {total} episodes',
+    'progress.episodes': 'Episode {watched} of {total}',
     'button.done': 'Done',
     'button.hide': 'Hide',
     'button.cancel': 'Cancel',
     'button.save': 'Save',
+    'button.delete': 'Delete',
+    'button.markAll': 'Mark all',
     'search.noResults': 'No results',
     'modal.addMovie.title': 'Add Movie',
     'modal.addShow.title': 'Add Show',
     'modal.addBook.title': 'Add Book',
     'modal.addAlert.title': 'Add Alert',
+    'modal.addReminder.title': 'Add Reminder',
     'label.title': 'Title',
     'label.alertMessage': 'Message',
     'placeholder.alertMessage': 'Short description',
+    'placeholder.movieName': 'e.g. Star Wars',
+    'placeholder.addAlert.exampleTitle': 'e.g. Add Sherlock to watchlist',
+    'placeholder.addReminder.exampleTitle': 'e.g. Continue watching Sherlock',
+    'placeholder.reminderMessage': 'Reminder details',
+    'placeholder.bookSearch': 'Enter a book title or author...',
+    'placeholder.showSearch': 'Enter a Show name',
     'label.level': 'Level',
     'label.status': 'Status',
+    'label.time': 'Time',
     'label.favorite': 'Favorite',
     'label.rating': 'Rating',
+    'label.searchTmdb': 'Search TMDB',
+    'label.bookSearch' : 'Book search',
+    'label.addReminder.message': 'Remider Message',
+    'label.currentPage': 'Current page',
+    'label.totalPages': 'Total pages',
+    'label.seasonsEpisodes': 'Seasons & Episodes',
     'option.info': 'Info',
     'option.warning': 'Warning',
     'option.success': 'Success',
@@ -202,6 +249,7 @@ const translations = {
     'toast.alertAdded': 'Alert added',
     'toast.reminderMissing': 'Title, message and time are required',
     'toast.saved': 'Saved',
+    'toast.added.reminder': 'Reminder added',
     'type.book': 'Book',
     'type.show': 'Show',
     'type.movie': 'Movie',
@@ -592,40 +640,57 @@ async function initApp() {
 function renderSettings(container) {
   container.innerHTML = `
     <div class="settings-box">
-      <h2 style="margin-bottom: 10px;">تنظیمات</h2>
-          <div class="form-row">
+      <h2 style="margin-bottom: 10px;">${t('settings.heading')}</h2>
+
+      <div class="form-row">
         <label for="tmdb-api-key">TMDB API Key</label>
-        <input id="tmdb-api-key" type="password" value="${escapeHtml(settings.tmdbApiKey || '')}" placeholder="کلید TMDB را وارد کنید" />
+        <input
+          id="tmdb-api-key"
+          type="password"
+          value="${escapeHtml(settings.tmdbApiKey || '')}"
+          placeholder="${t('settings.tmdbPlaceholder')}"
+        />
         <div class="hint">
-          برای جستجو در TMDB لازم است. می‌توانید از <a href="#" id="tmdb-help-link">این صفحه</a> کلید بگیرید.
+          ${t('settings.tmdb.helpText')}
+          <a href="#" id="tmdb-help-link">${t('settings.tmdb.helpLink')}</a>
         </div>
       </div>
+
       <div class="form-row">
-        <label for="books-api-key">Books API Key (اختیاری)</label>
-        <input id="books-api-key" type="password" value="${escapeHtml(settings.booksApiKey || '')}" placeholder="در صورت استفاده از Google Books کلید را وارد کنید" />
+        <label for="books-api-key">Books API Key (optional)</label>
+        <input
+          id="books-api-key"
+          type="password"
+          value="${escapeHtml(settings.booksApiKey || '')}"
+          placeholder="${t('settings.booksPlaceholder')}"
+        />
         <div class="hint">
-          اگر کلیدی ندارید، برنامه به‌صورت خودکار از Open Library استفاده می‌کند.
+          ${t('settings.openLibraryHint')}
         </div>
       </div>
+
       <div class="form-row">
-        <label>نمایش گزینه «همه» در تب‌ها</label>
+        <label>${t('settings.showAllLabel')}</label>
+
         <div class="toggle-list">
           <div class="toggle-row">
-            <span>فیلم‌ها</span>
+            <span>${t('type.movie')}</span>
             <label class="switch">
               <input type="checkbox" id="toggle-movies-all" ${isAllFilterEnabled('movies') ? 'checked' : ''} />
               <span class="slider"></span>
             </label>
           </div>
+
           <div class="toggle-row">
-            <span>سریال‌ها</span>
+            <span>${t('type.show')}</span>
             <label class="switch">
               <input type="checkbox" id="toggle-shows-all" ${isAllFilterEnabled('shows') ? 'checked' : ''} />
               <span class="slider"></span>
             </label>
           </div>
+
           <div class="toggle-row">
-            <span>کتاب‌ها</span>
+            <span>${t('type.book')}</span>
             <label class="switch">
               <input type="checkbox" id="toggle-books-all" ${isAllFilterEnabled('books') ? 'checked' : ''} />
               <span class="slider"></span>
@@ -633,44 +698,55 @@ function renderSettings(container) {
           </div>
         </div>
       </div>
-        <div class="form-row">
-          <label data-i18n="settings.appearance">حالت ظاهر</label>
-          <select id="theme-select">
-            <option value="dark" ${settings.theme === 'dark' ? 'selected' : ''}>تاریک</option>
-            <option value="light" ${settings.theme === 'light' ? 'selected' : ''}>روشن</option>
-          </select>
-        </div>
-        <div class="form-row">
-          <label data-i18n="settings.uiLanguage">زبان سیستم</label>
-          <select id="ui-language-select">
-            <option value="fa-IR" ${settings.uiLanguage === 'fa-IR' ? 'selected' : ''}>فارسی (fa-IR)</option>
-            <option value="en-US" ${settings.uiLanguage === 'en-US' ? 'selected' : ''}>English (en-US)</option>
-          </select>
-        </div>
+
       <div class="form-row">
-        <label>زبان جستجوی TMDB</label>
-        <select id="language-select">
-          <option value="">خودکار (سیستم)</option>
-          <option value="fa-IR" ${settings.language === 'fa-IR' ? 'selected' : ''}>فارسی (fa-IR)</option>
-          <option value="en-US" ${settings.language === 'en-US' ? 'selected' : ''}>English (en-US)</option>
-          <option value="es-ES" ${settings.language === 'es-ES' ? 'selected' : ''}>Español (es-ES)</option>
-          <option value="fr-FR" ${settings.language === 'fr-FR' ? 'selected' : ''}>Français (fr-FR)</option>
-          <option value="de-DE" ${settings.language === 'de-DE' ? 'selected' : ''}>Deutsch (de-DE)</option>
-          <option value="ja-JP" ${settings.language === 'ja-JP' ? 'selected' : ''}>日本語 (ja-JP)</option>
-          <option value="zh-CN" ${settings.language === 'zh-CN' ? 'selected' : ''}>中文 (zh-CN)</option>
-          <option value="ru-RU" ${settings.language === 'ru-RU' ? 'selected' : ''}>Русский (ru-RU)</option>
-          <option value="ar-SA" ${settings.language === 'ar-SA' ? 'selected' : ''}>العربية (ar-SA)</option>
-          <option value="it-IT" ${settings.language === 'it-IT' ? 'selected' : ''}>Italiano (it-IT)</option>
-          <option value="pt-BR" ${settings.language === 'pt-BR' ? 'selected' : ''}>Português (pt-BR)</option>
-          <option value="ko-KR" ${settings.language === 'ko-KR' ? 'selected' : ''}>한국어 (ko-KR)</option>
+        <label>${t('settings.appearance')}</label>
+        <select id="theme-select">
+          <option value="dark" ${settings.theme === 'dark' ? 'selected' : ''}>
+            ${t('theme.dark')}
+          </option>
+          <option value="light" ${settings.theme === 'light' ? 'selected' : ''}>
+            ${t('theme.light')}
+          </option>
         </select>
       </div>
+
       <div class="form-row">
-        <label>پوشه داده‌ها</label>
+        <label>${t('settings.uiLanguage')}</label>
+        <select id="ui-language-select">
+          <option value="fa-IR" ${settings.uiLanguage === 'fa-IR' ? 'selected' : ''}>فارسی</option>
+          <option value="en-US" ${settings.uiLanguage === 'en-US' ? 'selected' : ''}>English</option>
+        </select>
+      </div>
+
+      <div class="form-row">
+        <label>${t('settings.tmdbLanguageLabel')}</label>
+        <select id="language-select">
+          <option value="">${t('settings.auto')}</option>
+          <option value="fa-IR">فارسی</option>
+          <option value="en-US">English</option>
+          <option value="es-ES">Español</option>
+          <option value="fr-FR">Français</option>
+          <option value="de-DE">Deutsch</option>
+          <option value="ja-JP">日本語</option>
+          <option value="zh-CN">中文</option>
+          <option value="ru-RU">Русский</option>
+          <option value="ar-SA">العربية</option>
+          <option value="it-IT">Italiano</option>
+          <option value="pt-BR">Português</option>
+          <option value="ko-KR">한국어</option>
+        </select>
+      </div>
+
+      <div class="form-row">
+        <label>${t('settings.dataDirLabel')}</label>
         <div class="hint" id="settings-data-dir"></div>
       </div>
+
       <div class="modal-close-row">
-        <button class="btn btn-primary" id="save-settings-btn">ذخیره</button>
+        <button class="btn btn-primary" id="save-settings-btn">
+          ${t('button.save')}
+        </button>
       </div>
     </div>
   `;
@@ -820,12 +896,12 @@ function renderDashboard(container) {
                   <div class="alert-title">${escapeHtml(reminder.title)}</div>
                   <div class="alert-message">${escapeHtml(reminder.message)}</div>
                   <div class="alert-meta">
-                    ${new Date(reminder.dueAt).toLocaleString('fa-IR')}
+                    ${new Date(reminder.dueAt).toLocaleString('en-US', { hour12: false, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })}
                   </div>
                 </div>
                 <button class="btn btn-sm alert-dismiss"
                   data-reminder-id="${reminder.id}">
-                  ${t('actions.done') || 'انجام شد'}
+                  ${t('action.done') || 'انجام شد'}
                 </button>
               </div>
             `).join('')
@@ -842,9 +918,9 @@ function renderDashboard(container) {
           <div>
             <div class="alert-title">${escapeHtml(alert.title)}</div>
             <div class="alert-message">${escapeHtml(alert.message)}</div>
-            <div class="alert-meta">${new Date(alert.createdAt).toLocaleDateString('fa-IR')}</div>
+            <div class="alert-meta">${new Date(alert.createdAt).toLocaleString('en-US', { hour12: false, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })}</div>
           </div>
-          <button class="btn btn-sm alert-dismiss" data-alert-id="${alert.id}">پنهان</button>
+          <button class="btn btn-sm alert-dismiss" data-alert-id="${alert.id}">${t('button.hide')}</button>
         </div>
       `).join('') : `<div class="empty-state small">
               ${t('empty.noActiveAlerts') || 'هیچ هشدار فعالی وجود ندارد'}
@@ -1107,7 +1183,7 @@ function openAddAlertModal() {
     <h2>${t('modal.addAlert.title')}</h2>
     <div class="form-row">
       <label>${t('label.title')}</label>
-      <input id="alert-title" type="text" placeholder="${t('placeholder.exampleTitle') || 'e.g. Movie night'}" />
+      <input id="alert-title" type="text" placeholder="${t('placeholder.addAlert.exampleTitle') || 'e.g. Movie night'}" />
     </div>
     <div class="form-row">
       <label>${t('label.alertMessage')}</label>
@@ -1147,20 +1223,20 @@ function openAddReminderModal() {
     <h2>${t('modal.addReminder.title') || 'افزودن یادآور'}</h2>
     <div class="form-row">
       <label>${t('label.title')}</label>
-      <input id="reminder-title" type="text" placeholder="${t('placeholder.exampleTitle') || 'e.g. New movie'}" />
+      <input id="reminder-title" type="text" placeholder="${t('placeholder.addReminder.exampleTitle') || 'e.g. New movie'}" />
     </div>
     <div class="form-row">
-      <label>${t('label.message') || 'متن'}</label>
+      <label>${t('label.addReminder.message') || 'متن'}</label>
       <textarea id="reminder-message" placeholder="${t('placeholder.reminderMessage') || 'Reminder details'}"></textarea>
     </div>
     <div class="form-row">
       <label>${t('label.time') || 'زمان'}</label>
       <input id="reminder-due-at" type="datetime-local" />
     </div>
-    <div class="modal-close-row">
-      <button class="btn" id="cancel-btn">انصراف</button>
-      <button class="btn btn-primary" id="save-reminder-btn">ذخیره</button>
-    </div>
+   <div class="modal-close-row">
+    <button class="btn" id="cancel-btn">${t('button.cancel')}</button>
+    <button class="btn btn-primary" id="save-reminder-btn">${t('button.save')}</button>
+  </div>
   `);
   document.getElementById('cancel-btn').addEventListener('click', closeModal);
   document.getElementById('save-reminder-btn').addEventListener('click', () => {
@@ -1318,19 +1394,30 @@ function renderBooks(container) {
 
   container.innerHTML = `
     <div class="subtabs">
-      ${isAllFilterEnabled('books') ? subtabBtn('books', 'all', 'همه') : ''}
-      ${subtabBtn('books', 'watchlist', 'لیست خواندن')}
-      ${subtabBtn('books', 'reading', 'در حال خواندن')}
-      ${subtabBtn('books', 'read', 'خوانده‌شده')}
-      ${subtabBtn('books', 'favorites', 'علاقه‌مندی‌ها')}
+      ${isAllFilterEnabled('books') ? subtabBtn('books', 'all', t('subtab.all')) : ''}
+      ${subtabBtn('books', 'watchlist', t('badge.toRead'))}
+      ${subtabBtn('books', 'reading', t('badge.reading'))}
+      ${subtabBtn('books', 'read', t('badge.read'))}
+      ${subtabBtn('books', 'favorites', t('subtab.favorites'))}
     </div>
     <div class="grid" id="books-grid"></div>
   `;
+
   bindSubtabs(container, 'books');
 
   const grid = document.getElementById('books-grid');
+
   if (items.length === 0) {
-    grid.outerHTML = `<div class="empty-state"><div class="big">${iconSvg('books', 'icon icon--lg')}</div>هنوز کتابی اضافه نکرده‌اید<br><br><button class="btn btn-primary" onclick="openAddBookModal()">${iconSvg('plus', 'icon icon--sm')} افزودن کتاب</button></div>`;
+    grid.outerHTML = `
+      <div class="empty-state">
+        <div class="big">${iconSvg('books', 'icon icon--lg')}</div>
+        ${t('empty.noBooks')}
+        <br><br>
+        <button class="btn btn-primary" onclick="openAddBookModal()">
+          ${iconSvg('plus', 'icon icon--sm')} ${t('action.addBook')}
+        </button>
+      </div>
+    `;
   } else {
     grid.innerHTML = items.slice().reverse().map(b => cardHtml(b, 'books')).join('');
     attachCardHandlers(grid);
@@ -1339,16 +1426,23 @@ function renderBooks(container) {
 
 function openAddBookModal() {
   openModal(`
-    <h2>افزودن کتاب</h2>
+    <h2>${t('modal.addBook.title')}</h2>
+
     <div class="form-row">
-      <label>جستجو در کتاب‌ها</label>
+      <label>${t('label.bookSearch')}</label>
       <div class="search-box" style="border-radius:8px;">
-        <input type="text" id="book-search-input" placeholder="نام کتاب یا نویسنده را وارد کنید..." />
+        <input
+          type="text"
+          id="book-search-input"
+          placeholder="${t('placeholder.bookSearch')}"
+        />
       </div>
     </div>
+
     <div class="search-results" id="book-search-results"></div>
+
     <div class="modal-close-row">
-      <button class="btn" id="cancel-btn">انصراف</button>
+      <button class="btn" id="cancel-btn">${t('button.cancel')}</button>
     </div>
   `);
   document.getElementById('cancel-btn').addEventListener('click', closeModal);
@@ -1434,37 +1528,43 @@ function openBookDetail(id) {
         <div class="dh-overview">${escapeHtml(b.overview)}</div>
       </div>
     </div>
+
     <div class="form-row">
-      <label>وضعیت</label>
+      <label>${t('label.status')}</label>
       <select id="book-status">
-        <option value="watchlist" ${b.status === 'watchlist' ? 'selected' : ''}>لیست خواندن</option>
-        <option value="reading" ${b.status === 'reading' ? 'selected' : ''}>در حال خواندن</option>
-        <option value="read" ${b.status === 'read' ? 'selected' : ''}>خوانده‌شده</option>
+        <option value="watchlist" ${b.status === 'watchlist' ? 'selected' : ''}>${t('badge.toRead')}</option>
+        <option value="reading" ${b.status === 'reading' ? 'selected' : ''}>${t('badge.reading')}</option>
+        <option value="read" ${b.status === 'read' ? 'selected' : ''}>${t('badge.read')}</option>
       </select>
     </div>
+
     <div class="form-row">
-      <label>صفحه فعلی</label>
+      <label>${t('label.currentPage')}</label>
       <input id="book-current-page" type="number" min="0" value="${b.currentPage || 0}" />
     </div>
+
     <div class="form-row">
-      <label>تعداد کل صفحات</label>
+      <label>${t('label.totalPages')}</label>
       <input id="book-total-pages" type="number" min="0" value="${b.totalPages || 0}" />
     </div>
+
     <div class="form-row">
-      <label>علاقه‌مندی</label>
+      <label>${t('label.favorite')}</label>
       <label class="switch">
         <input type="checkbox" id="book-favorite" ${b.favorite ? 'checked' : ''} />
         <span class="slider"></span>
       </label>
     </div>
+
     <div class="form-row">
-      <label>امتیاز</label>
+      <label>${t('label.rating')}</label>
       ${starsHtml(b.rating || 0, b.id, 'books')}
     </div>
+
     <div class="modal-close-row">
-      <button class="btn btn-danger" id="delete-btn">حذف</button>
-      <button class="btn" id="cancel-btn">بستن</button>
-      <button class="btn btn-primary" id="save-btn">ذخیره</button>
+      <button class="btn btn-danger" id="delete-btn">${t('button.delete')}</button>
+      <button class="btn" id="cancel-btn">${t('button.cancel')}</button>
+      <button class="btn btn-primary" id="save-btn">${t('button.save')}</button>
     </div>
   `);
 
@@ -1522,20 +1622,31 @@ function renderShows(container) {
 
   container.innerHTML = `
     <div class="subtabs">
-      ${isAllFilterEnabled('shows') ? subtabBtn('shows', 'all', 'همه') : ''}
-      ${subtabBtn('shows', 'watchlist', 'لیست تماشا')}
-      ${subtabBtn('shows', 'watching', 'در حال تماشا')}
-      ${subtabBtn('shows', 'watched', 'تمام‌شده')}
-      ${subtabBtn('shows', 'abandoned', 'رها شده')}
-      ${subtabBtn('shows', 'favorites', 'علاقه‌مندی‌ها')}
+      ${isAllFilterEnabled('shows') ? subtabBtn('shows', 'all', t('subtab.all')) : ''}
+      ${subtabBtn('shows', 'watchlist', t('badge.watchlist'))}
+      ${subtabBtn('shows', 'watching', t('badge.watching'))}
+      ${subtabBtn('shows', 'watched', t('badge.finished'))}
+      ${subtabBtn('shows', 'abandoned', t('badge.abandoned'))}
+      ${subtabBtn('shows', 'favorites', t('subtab.favorites'))}
     </div>
     <div class="grid" id="shows-grid"></div>
   `;
+
   bindSubtabs(container, 'shows');
 
   const grid = document.getElementById('shows-grid');
+
   if (items.length === 0) {
-    grid.outerHTML = `<div class="empty-state"><div class="big">${iconSvg('shows', 'icon icon--lg')}</div>هنوز سریالی اضافه نکرده‌اید<br><br><button class="btn btn-primary" onclick="openAddShowModal()">${iconSvg('plus', 'icon icon--sm')} افزودن سریال</button></div>`;
+    grid.outerHTML = `
+      <div class="empty-state">
+        <div class="big">${iconSvg('shows', 'icon icon--lg')}</div>
+        ${t('empty.noShows')}
+        <br><br>
+        <button class="btn btn-primary" onclick="openAddShowModal()">
+          ${iconSvg('plus', 'icon icon--sm')} ${t('action.addShow')}
+        </button>
+      </div>
+    `;
   } else {
     grid.innerHTML = items.slice().reverse().map(s => cardHtml(s, 'shows')).join('');
     attachCardHandlers(grid);
@@ -1544,16 +1655,23 @@ function renderShows(container) {
 
 function openAddShowModal() {
   openModal(`
-    <h2>افزودن سریال</h2>
+    <h2>${t('modal.addShow.title')}</h2>
+
     <div class="form-row">
-      <label>جستجو در TMDB</label>
+      <label>${t('label.searchTmdb')}</label>
       <div class="search-box" style="border-radius:8px;">
-        <input type="text" id="show-search-input" placeholder="نام سریال را وارد کنید..." />
+        <input
+          type="text"
+          id="show-search-input"
+          placeholder="${t('placeholder.showSearch')}"
+        />
       </div>
     </div>
+
     <div class="search-results" id="show-search-results"></div>
+
     <div class="modal-close-row">
-      <button class="btn" id="cancel-btn">انصراف</button>
+      <button class="btn" id="cancel-btn">${t('button.cancel')}</button>
     </div>
   `);
   document.getElementById('cancel-btn').addEventListener('click', closeModal);
@@ -1654,7 +1772,9 @@ function openShowDetail(id) {
         <div class="season-block-header" data-idx="${idx}">
           <span>${escapeHtml(se.name)} (${seasonWatched}/${se.episodeCount})</span>
           <span>
-            <button class="btn btn-sm" data-mark-season="${idx}" onclick="event.stopPropagation()">علامت‌گذاری همه</button>
+            <button class="btn btn-sm" data-mark-season="${idx}" onclick="event.stopPropagation()">
+              ${t('button.markAll')}
+            </button>
             ▾
           </span>
         </div>
@@ -1677,38 +1797,47 @@ function openShowDetail(id) {
       ${s.poster ? `<img src="${escapeHtml(s.poster)}" />` : ''}
       <div>
         <div class="dh-title">${escapeHtml(s.title)}</div>
-        <div class="card-meta">${escapeHtml(s.year)} · ${watchedEp}/${totalEp} قسمت دیده‌شده</div>
+        <div class="card-meta">
+          ${escapeHtml(s.year)} · ${t('progress.episodes')
+            .replace('{watched}', watchedEp)
+            .replace('{total}', totalEp)}
+        </div>
         <div class="dh-overview">${escapeHtml(s.overview)}</div>
       </div>
     </div>
+
     <div class="form-row">
-      <label>وضعیت</label>
+      <label>${t('label.status')}</label>
       <select id="show-status">
-        <option value="watchlist" ${s.status === 'watchlist' ? 'selected' : ''}>لیست تماشا</option>
-        <option value="watching" ${s.status === 'watching' ? 'selected' : ''}>در حال تماشا</option>
-        <option value="watched" ${s.status === 'watched' ? 'selected' : ''}>تمام‌شده</option>
-        <option value="abandoned" ${s.status === 'abandoned' ? 'selected' : ''}>رها شده</option>
+        <option value="watchlist" ${s.status === 'watchlist' ? 'selected' : ''}>${t('badge.watchlist')}</option>
+        <option value="watching" ${s.status === 'watching' ? 'selected' : ''}>${t('badge.watching')}</option>
+        <option value="watched" ${s.status === 'watched' ? 'selected' : ''}>${t('badge.finished')}</option>
+        <option value="abandoned" ${s.status === 'abandoned' ? 'selected' : ''}>${t('badge.abandoned')}</option>
       </select>
     </div>
+
     <div class="form-row">
-      <label>علاقه‌مندی</label>
+      <label>${t('label.favorite')}</label>
       <label class="switch">
         <input type="checkbox" id="show-favorite" ${s.favorite ? 'checked' : ''} />
         <span class="slider"></span>
       </label>
     </div>
+
     <div class="form-row">
-      <label>امتیاز</label>
+      <label>${t('label.rating')}</label>
       ${starsHtml(s.rating || 0, s.id, 'shows')}
     </div>
+
     <div class="form-row">
-      <label>فصل‌ها و قسمت‌ها</label>
-      ${seasonsHtml || '<div class="card-meta">اطلاعات فصلی موجود نیست</div>'}
+      <label>${t('label.seasonsEpisodes')}</label>
+      ${seasonsHtml || `<div class="card-meta">${t('season.noInfo')}</div>`}
     </div>
+
     <div class="modal-close-row">
-      <button class="btn btn-danger" id="delete-btn">حذف</button>
-      <button class="btn" id="cancel-btn">بستن</button>
-      <button class="btn btn-primary" id="save-btn">ذخیره</button>
+      <button class="btn btn-danger" id="delete-btn">${t('button.delete')}</button>
+      <button class="btn" id="cancel-btn">${t('button.cancel')}</button>
+      <button class="btn btn-primary" id="save-btn">${t('button.save')}</button>
     </div>
   `);
 
