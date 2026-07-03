@@ -90,7 +90,26 @@ MediaNest/
 Add screenshots here to showcase the app:
 
 ```id="k2v9fs"
-![MediaNest Screenshot](assests\screenshots\screenshot1.png)
+### Home / Library View
+![Screenshot 1](assests/screenshots/screenshot1.png)
+
+### Movies Section
+![Screenshot 2](assests/screenshots/screenshot2.png)
+
+### TV Shows Section
+![Screenshot 3](assests/screenshots/screenshot3.png)
+
+### Books Section
+![Screenshot 4](assests/screenshots/screenshot4.png)
+
+### Favorites
+![Screenshot 5](assests/screenshots/screenshot5.png)
+
+### Details Page
+![Screenshot 6](assests/screenshots/screenshot6.png)
+
+### Settings / Language
+![Screenshot 7](assests/screenshots/screenshot7.png)
 ```
 
 ---
