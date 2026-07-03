@@ -90,25 +90,23 @@ MediaNest/
 Add screenshots here to showcase the app:
 
 
-### Home / Library View
-![Screenshot 1](assests/screenshots/screenshot1.png)
-
-### Movies Section
+### Dashboard
 ![Screenshot 2](assests/screenshots/screenshot2.png)
 
-### TV Shows Section
+### Settings Section
+![Screenshot 1](assests/screenshots/screenshot1.png)
+
+### Movies
 ![Screenshot 3](assests/screenshots/screenshot3.png)
 
-### Books Section
 ![Screenshot 4](assests/screenshots/screenshot4.png)
 
-### Favorites
 ![Screenshot 5](assests/screenshots/screenshot5.png)
 
-### Details Page
+### TV Shows Page
 ![Screenshot 6](assests/screenshots/screenshot6.png)
 
-### Settings / Language
+### Books Page
 ![Screenshot 7](assests/screenshots/screenshot7.png)
 
 ---
